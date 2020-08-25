@@ -5,7 +5,7 @@ import { connect } from 'dva';
 const { LOGIN_PAGE_BASE } = process.env;
 
 function PrivateRouter({ children, login, location }) {
-    if (localStorage.getItem('token')) {
+    if (login) {
         return (
             <div>
                 <h2>PrivateRouter</h2>

@@ -12,8 +12,11 @@ export default {
 
     effects: {
         *login({ payload }, { put, call }) {
+            console.log(payload);
             const response = yield call(userServices.login(payload));
             console.log(response);
         },
     },
+
+    reducers: {},
 };
