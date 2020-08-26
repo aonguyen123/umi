@@ -4,7 +4,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import yay from '@/assets/yay.jpg';
 import placeholderImg from '@/assets/placeholder.jpg';
 
-export default function LoginComponent({ onLogin }) {
+export default function LoginComponent({ onLogin, isLoading }) {
     return (
         <Card>
             <Row justify="space-between" align="middle">
@@ -30,7 +30,7 @@ export default function LoginComponent({ onLogin }) {
                             <Input.Password placeholder="Password" prefix={<LockOutlined />} />
                         </Form.Item>
                         <Form.Item>
-                            <Button block type="primary" htmlType="submit">
+                            <Button block type="primary" htmlType="submit" loading={isLoading}>
                                 Login
                             </Button>
                         </Form.Item>

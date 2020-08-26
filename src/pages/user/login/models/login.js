@@ -6,17 +6,46 @@ const initialState = {
     redirectUrl: '',
 };
 
+function delay(ms = 1000) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(ms);
+        }, ms);
+    });
+}
+
 export default {
     namespace: 'login',
     state: initialState,
 
     effects: {
         *login({ payload }, { put, call }) {
-            console.log(payload);
-            const response = yield call(userServices.login(payload));
-            console.log(response);
+            yield put({
+                type: 'saveLoginStatus',
+                status: true,
+            });
+            // const response = yield call(userServices.login, payload);
+            // console.log(response);
         },
+        loginWatcher: [
+            function*({take, put}) {
+                while(true) {
+                    yield take('login/login/@@start');
+                    // yield put({type: 'login/login'})
+                }
+            },
+            {
+                type: 'takeLatest'
+            }
+        ]
     },
 
-    reducers: {},
+    reducers: {
+        saveLoginStatus(state, action) {
+            return {
+                ...state,
+                status: action.status,
+            };
+        },
+    },
 };
