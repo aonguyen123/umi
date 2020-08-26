@@ -4,11 +4,12 @@ import { connect } from 'dva';
 
 const { LOGIN_PAGE_BASE } = process.env;
 
-function PrivateRouter({ children, login, location }) {
+function Authentication({ children, login, location }) {
+    console.log(login);
     if (login) {
         return (
             <div>
-                <h2>PrivateRouter</h2>
+                <h2>Authentication</h2>
                 {children}
             </div>
         );
@@ -28,4 +29,4 @@ function PrivateRouter({ children, login, location }) {
 
 export default connect(({ user }) => ({
     login: user.login,
-}))(PrivateRouter);
+}))(Authentication);

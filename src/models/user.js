@@ -10,6 +10,8 @@ export default {
     },
 
     effects: {
+        *fetch({ put, call }) {},
+
         loginUserWatcher: [
             function*({ take, select, put }) {
                 while (true) {
@@ -40,4 +42,6 @@ export default {
             };
         },
     },
+
+    subscriptions: {},
 };
