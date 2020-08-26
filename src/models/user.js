@@ -1,4 +1,6 @@
 import { routerRedux } from 'dva';
+import { delay } from '@/utils/utils';
+import storage from '@/utils/storage';
 // import * as userServices from '@/services/user';
 
 export default {
@@ -10,7 +12,20 @@ export default {
     },
 
     effects: {
-        *fetch({ put, call }) {},
+        *logout({ put, call }) {
+            yield call(delay, 3000);
+            storage.setTokenJWT(null);
+            storage.setAuthority(null);
+            yield put({
+                type: 'login/reset',
+            });
+            yield put(routerRedux.push('/'));
+            yield put({
+                type: 'updateField',
+                field: 'login',
+                value: false,
+            });
+        },
 
         loginUserWatcher: [
             function*({ take, select, put }) {

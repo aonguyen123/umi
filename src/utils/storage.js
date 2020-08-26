@@ -16,9 +16,6 @@ function getTokenJWT() {
 function setTokenJWT(tokenJWT) {
     return localStorage.setItem('token_JWT', tokenJWT);
 }
-function removeTokenJWT() {
-    return localStorage.removeItem('token_JWT');
-}
 function setAuthority(auth) {
     if (auth) {
         window.localStorage.setItem('AUTH', auth);
@@ -34,7 +31,6 @@ function getAuthority() {
 const storage = {
     getTokenJWT,
     setTokenJWT,
-    removeTokenJWT,
     setAuthority,
     getAuthority,
 };

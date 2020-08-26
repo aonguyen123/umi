@@ -5,7 +5,6 @@ import { connect } from 'dva';
 const { LOGIN_PAGE_BASE } = process.env;
 
 function Authentication({ children, login, location }) {
-    console.log(login);
     if (login) {
         return (
             <div>

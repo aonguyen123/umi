@@ -1,3 +1,4 @@
+// import { routerRedux } from 'dva';
 import * as userServices from '@/services/user';
 import storage from '@/utils/storage';
 
@@ -38,6 +39,11 @@ export default {
             return {
                 ...state,
                 status: action.status,
+            };
+        },
+        reset(state) {
+            return {
+                ...state,
             };
         },
     },
