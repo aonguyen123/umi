@@ -1,51 +1,57 @@
-import { routerRedux } from 'dva';
 import * as userServices from '@/services/user';
-
-const initialState = {
-    status: undefined,
-    redirectUrl: '',
-};
-
-function delay(ms = 1000) {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve(ms);
-        }, ms);
-    });
-}
+import storage from '@/utils/storage';
 
 export default {
     namespace: 'login',
-    state: initialState,
+    state: {
+        status: undefined,
+        redirectUrl: '',
+    },
 
     effects: {
         *login({ payload }, { put, call }) {
+            const response = yield call(userServices.login, payload);
+            if (response) {
+                const { token, role } = response;
+                if (token && role) {
+                    storage.setTokenJWT(token);
+                    storage.setAuthority(role);
+                }
+            }
+            const loginStatus = !!(response && response.token);
             yield put({
                 type: 'saveLoginStatus',
-                status: true,
+                status: loginStatus,
             });
-            // const response = yield call(userServices.login, payload);
-            // console.log(response);
+            return loginStatus;
         },
-        loginWatcher: [
-            function*({take, put}) {
-                while(true) {
-                    yield take('login/login/@@start');
-                    // yield put({type: 'login/login'})
-                }
-            },
-            {
-                type: 'takeLatest'
-            }
-        ]
     },
 
     reducers: {
+        saveRedirectPath(state, action) {
+            return {
+                ...state,
+                redirectUrl: action.redirectUrl || '/',
+            };
+        },
         saveLoginStatus(state, action) {
             return {
                 ...state,
                 status: action.status,
             };
+        },
+    },
+
+    subscriptions: {
+        setup({ history, dispatch }) {
+            return history.listen(({ pathname, query }) => {
+                if (pathname === '/user/login') {
+                    dispatch({
+                        type: 'saveRedirectPath',
+                        redirectUrl: decodeURIComponent(query.redirectUrl),
+                    });
+                }
+            });
         },
     },
 };

@@ -7,14 +7,12 @@ import { connect } from 'dva';
 import LoginComponent from './components/login';
 import styles from './styles.css';
 
-function Login({ status, dispatch, effectLoading}) {
-
-    function onLogin(values) {
-        const rs = dispatch({
+function Login({ status, dispatch, effectLoading }) {
+    async function onLogin(values) {
+        await dispatch({
             type: 'login/login',
             payload: values,
         });
-        console.log(rs)
     }
 
     return (
@@ -30,5 +28,5 @@ export default connect(({ login, loading }) => ({
     status: login.status,
     // globalLoading: loading.global,
     // loginLoading: loading.models['login'],
-    effectLoading: loading.effects['login/login']
+    effectLoading: loading.effects['login/login'],
 }))(Login);

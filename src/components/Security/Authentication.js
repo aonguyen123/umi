@@ -21,7 +21,7 @@ function PrivateRouter({ children, login, location }) {
     if (location.search) {
         redirectParams.push(location.search);
     }
-    loginPath = `${loginPath}?RedirectUrl=${encodeURIComponent(redirectParams.join(''))}`;
+    loginPath = `${loginPath}?redirectUrl=${encodeURIComponent(redirectParams.join(''))}`;
 
     return <Redirect to={loginPath} />;
 }
