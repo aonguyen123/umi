@@ -1,11 +1,12 @@
 import React from 'react';
 import { Redirect } from 'umi';
 import { connect } from 'dva';
+import storage from '@/utils/storage';
 
 const { LOGIN_PAGE_BASE } = process.env;
 
-function Authentication({ children, login, location }) {
-    if (login) {
+function Authentication({ children, location }) {
+    if (storage.getAuthority() === '2') {
         return (
             <div>
                 <h2>Authentication</h2>
@@ -13,7 +14,7 @@ function Authentication({ children, login, location }) {
             </div>
         );
     }
-    let loginPath = LOGIN_PAGE_BASE || '/user/login';
+    let loginPath = LOGIN_PAGE_BASE || '/auth/login';
     const redirectParams = [];
     if (location.pathname) {
         redirectParams.push(location.pathname);
@@ -26,6 +27,6 @@ function Authentication({ children, login, location }) {
     return <Redirect to={loginPath} />;
 }
 
-export default connect(({ user }) => ({
-    login: user.login,
+export default connect(({ authentication }) => ({
+    login: authentication.login,
 }))(Authentication);

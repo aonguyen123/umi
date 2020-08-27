@@ -1,10 +1,16 @@
 import React from 'react';
+import { Layout } from 'antd';
 
-export default function BasicLayout({ children }) {
+const { Header, Content, Footer } = Layout;
+
+export default function BasicLayout({ children, styles }) {
     return (
-        <div>
-            <h2>BasicLayout</h2>
-            <div className="container">{children}</div>
-        </div>
+        <Layout>
+            <Header>Header</Header>
+            <Content>
+                <div className={styles.basicContainer}>{children}</div>
+            </Content>
+            <Footer>Footer</Footer>
+        </Layout>
     );
 }

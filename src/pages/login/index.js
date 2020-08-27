@@ -4,10 +4,10 @@
  */
 import { Row, Col } from 'antd';
 import { connect } from 'dva';
-import LoginComponent from './components/login';
+import LoginComponent from '@/pages/login/components/login';
 import styles from './styles.css';
 
-function Login({ status, dispatch, effectLoading }) {
+function Login({ dispatch, effectLoading }) {
     async function onLogin(values) {
         await dispatch({
             type: 'login/login',
@@ -24,8 +24,7 @@ function Login({ status, dispatch, effectLoading }) {
     );
 }
 
-export default connect(({ login, loading }) => ({
-    status: login.status,
+export default connect(({ loading }) => ({
     // globalLoading: loading.global,
     // loginLoading: loading.models['login'],
     effectLoading: loading.effects['login/login'],

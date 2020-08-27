@@ -1,23 +1,24 @@
 /**
  *  title: User page
- *  roles: ['user']
+ *  roles:
+ *      - admin
+ *      - manager
  *  Routes:
  *      - ./src/components/Security/Authentication.js
- *      - ./src/components/Security/Authority.js
  */
 import { Button } from 'antd';
 import { connect } from 'dva';
 
-function User({ dispatch, loadingLogout }) {
-    async function onLogout() {
-        await dispatch({
-            type: 'user/logout',
+function Auth({ dispatch, loadingLogout }) {
+    function onLogout() {
+        dispatch({
+            type: 'authentication/logout',
         });
     }
 
     return (
         <div>
-            <h2>User page</h2>
+            <h2>Authentication page</h2>
             <Button onClick={onLogout} loading={loadingLogout} type="primary">
                 Logout
             </Button>
@@ -26,5 +27,5 @@ function User({ dispatch, loadingLogout }) {
 }
 
 export default connect(({ loading }) => ({
-    loadingLogout: loading.effects['user/logout'],
-}))(User);
+    loadingLogout: loading.effects['authentication/logout'],
+}))(Auth);

@@ -1,4 +1,3 @@
-// import { routerRedux } from 'dva';
 import * as userServices from '@/services/user';
 import storage from '@/utils/storage';
 
@@ -30,9 +29,10 @@ export default {
 
     reducers: {
         saveRedirectPath(state, action) {
+            console.log(action.redirectUrl);
             return {
                 ...state,
-                redirectUrl: action.redirectUrl || '/',
+                redirectUrl: action.redirectUrl,
             };
         },
         saveLoginStatus(state, action) {
@@ -51,10 +51,12 @@ export default {
     subscriptions: {
         setup({ history, dispatch }) {
             return history.listen(({ pathname, query }) => {
-                if (pathname === '/user/login') {
+                if (pathname === '/login') {
                     dispatch({
                         type: 'saveRedirectPath',
-                        redirectUrl: decodeURIComponent(query.redirectUrl),
+                        redirectUrl: decodeURIComponent(
+                            query.redirectUrl ? query.redirectUrl : '/',
+                        ),
                     });
                 }
             });

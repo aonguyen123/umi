@@ -1,10 +1,9 @@
 import { routerRedux } from 'dva';
 import { delay } from '@/utils/utils';
 import storage from '@/utils/storage';
-// import * as userServices from '@/services/user';
 
 export default {
-    namespace: 'user',
+    namespace: 'authentication',
 
     state: {
         login: false,
@@ -12,14 +11,14 @@ export default {
     },
 
     effects: {
-        *logout({ put, call }) {
+        *logout(action, { put, call }) {
             yield call(delay, 3000);
             storage.setTokenJWT(null);
             storage.setAuthority(null);
             yield put({
                 type: 'login/reset',
             });
-            yield put(routerRedux.push('/'));
+            yield put(routerRedux.push('/home'));
             yield put({
                 type: 'updateField',
                 field: 'login',
@@ -27,7 +26,7 @@ export default {
             });
         },
 
-        loginUserWatcher: [
+        authUserWatcher: [
             function*({ take, select, put }) {
                 while (true) {
                     yield take('login/saveLoginStatus');
@@ -50,13 +49,10 @@ export default {
 
     reducers: {
         updateField(state, action) {
-            const { field, value } = action;
             return {
                 ...state,
-                [field]: value,
+                [action.field]: action.value,
             };
         },
     },
-
-    subscriptions: {},
 };
