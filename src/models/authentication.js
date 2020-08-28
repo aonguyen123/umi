@@ -11,14 +11,22 @@ export default {
     },
 
     effects: {
+        *getCurrentUser(action, { put }) {
+            const userCurrent = storage.getUserCurrent();
+            yield put({
+                type: 'saveUserCurrent',
+                data: userCurrent,
+            });
+        },
         *logout(action, { put, call }) {
             yield call(delay, 3000);
             storage.setTokenJWT(null);
             storage.setAuthority(null);
+            storage.setUserCurrent(null);
             yield put({
                 type: 'login/reset',
             });
-            yield put(routerRedux.push('/home'));
+            yield put(routerRedux.push('/'));
             yield put({
                 type: 'updateField',
                 field: 'login',
@@ -53,6 +61,21 @@ export default {
                 ...state,
                 [action.field]: action.value,
             };
+        },
+        saveUserCurrent(state, action) {
+            return {
+                ...state,
+                currentUser: action.data,
+            };
+        },
+    },
+    subscriptions: {
+        setup({ history, dispatch }) {
+            return history.listen(({ pathname }) => {
+                if (pathname === '/') {
+                    dispatch({ type: 'getCurrentUser' });
+                }
+            });
         },
     },
 };

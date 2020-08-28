@@ -1,6 +1,7 @@
 /**
  * title: Login page
- *
+ * Routes:
+ *  - ./src/components/Security/Authentication.js
  */
 import { Row, Col } from 'antd';
 import { connect } from 'dva';
@@ -17,7 +18,7 @@ function Login({ dispatch, effectLoading }) {
 
     return (
         <Row justify="center" align="middle" className={styles.login}>
-            <Col span={10}>
+            <Col span={7}>
                 <LoginComponent onLogin={onLogin} isLoading={effectLoading} />
             </Col>
         </Row>

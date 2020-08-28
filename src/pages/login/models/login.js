@@ -12,10 +12,11 @@ export default {
         *login({ payload }, { put, call }) {
             const response = yield call(userServices.login, payload);
             if (response) {
-                const { token, role } = response;
+                const { token, role, ...rest } = response;
                 if (token && role) {
                     storage.setTokenJWT(token);
                     storage.setAuthority(role);
+                    storage.setUserCurrent(rest);
                 }
             }
             const loginStatus = !!(response && response.token);
@@ -29,7 +30,6 @@ export default {
 
     reducers: {
         saveRedirectPath(state, action) {
-            console.log(action.redirectUrl);
             return {
                 ...state,
                 redirectUrl: action.redirectUrl,

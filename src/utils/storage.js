@@ -23,6 +23,17 @@ function setAuthority(auth) {
         window.localStorage.removeItem('AUTH');
     }
 }
+function setUserCurrent(user) {
+    if (user) {
+        window.localStorage.setItem('USER_CURRENT', JSON.stringify(user));
+    } else {
+        window.localStorage.removeItem('USER_CURRENT');
+    }
+}
+function getUserCurrent() {
+    const userCurrent = window.localStorage.getItem('USER_CURRENT');
+    return JSON.parse(userCurrent);
+}
 function getAuthority() {
     const auth = window.localStorage.getItem('AUTH');
     return auth;
@@ -33,6 +44,8 @@ const storage = {
     setTokenJWT,
     setAuthority,
     getAuthority,
+    setUserCurrent,
+    getUserCurrent,
 };
 
 export default storage;

@@ -2,7 +2,7 @@
 export default {
     treeShaking: true,
     theme: {
-        '@primary-color': '#722ed1',
+        '@primary-color': '#f759ab',
     },
     plugins: [
         // ref: https://umijs.org/plugin/umi-plugin-react.html

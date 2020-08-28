@@ -1,0 +1,8 @@
+.titleLogin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ant-typography {
+    margin: 0 !important;
+}
