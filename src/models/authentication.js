@@ -8,6 +8,7 @@ export default {
     state: {
         login: false,
         currentUser: {},
+        roles: undefined,
     },
 
     effects: {

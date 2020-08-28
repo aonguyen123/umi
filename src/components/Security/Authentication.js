@@ -1,12 +1,12 @@
 import React from 'react';
 import { Redirect } from 'umi';
-import { connect, routerRedux } from 'dva';
+import { routerRedux, connect } from 'dva';
 import storage from '@/utils/storage';
 
 const { LOGIN_PAGE_BASE } = process.env;
 
 function Authentication({ children, location, dispatch }) {
-    if (storage.getAuthority() === '2') {
+    if (storage.getAuthority()) {
         if (children.props.route.path === '/login') {
             return dispatch(routerRedux.goBack());
         }
@@ -34,6 +34,4 @@ function Authentication({ children, location, dispatch }) {
     }
 }
 
-export default connect(({ authentication }) => ({
-    login: authentication.login,
-}))(Authentication);
+export default connect()(Authentication);
