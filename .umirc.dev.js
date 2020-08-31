@@ -3,7 +3,7 @@ export default {
         'process.env': {
             ...process.env,
             LOGIN_PAGE_BASE: '/login',
-            URL_API: 'http://192.168.0.157:3007',
+            URL_API: 'https://app-nest-api.herokuapp.com',
         },
     },
 };

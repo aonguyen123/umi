@@ -1,16 +1,18 @@
 import React from 'react';
 import { Layout } from 'antd';
+import GlobalHeader from './../GlobalHeader';
+import GlobalFooter from './../GlobalFooter';
 
-const { Header, Content, Footer } = Layout;
+const { Content } = Layout;
 
 export default function BasicLayout({ children, styles }) {
     return (
         <Layout>
-            <Header>Header</Header>
+            <GlobalHeader />
             <Content>
                 <div className={styles.basicContainer}>{children}</div>
             </Content>
-            <Footer>Footer</Footer>
+            <GlobalFooter />
         </Layout>
     );
 }

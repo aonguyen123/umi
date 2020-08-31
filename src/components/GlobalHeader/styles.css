@@ -1,0 +1,44 @@
+.header {
+    padding: 0;
+    box-shadow: 0 0 0 0.9;
+    display: flex;
+    justify-content: space-between;
+    height: 72px;
+    z-index: 9;
+    align-items: center;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    right: 0;
+    width: 100%;
+    transition: 0.2s;
+}
+.rightContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.leftContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo {
+    margin: 0 20px;
+}
+.logo span {
+    margin-left: 5px;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #8c8c8c;
+}
+/* antd */
+
+.headerAntd {
+    border-bottom: none;
+}
+.subMenu {
+    border-bottom: none !important;
+}

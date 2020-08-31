@@ -18,7 +18,7 @@ function Login({ dispatch, effectLoading }) {
 
     return (
         <Row justify="center" align="middle" className={styles.login}>
-            <Col span={7}>
+            <Col xxl={7} xl={7} lg={10} md={10} sm={12}>
                 <LoginComponent onLogin={onLogin} isLoading={effectLoading} />
             </Col>
         </Row>

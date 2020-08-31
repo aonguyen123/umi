@@ -5,6 +5,7 @@
 import { Link } from 'umi';
 import { connect } from 'dva';
 import { Button } from 'antd';
+import './index.css';
 
 export default connect(({ authentication, loading }) => ({
     currentUser: authentication.currentUser,

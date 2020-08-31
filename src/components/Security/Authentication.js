@@ -6,7 +6,7 @@ import storage from '@/utils/storage';
 const { LOGIN_PAGE_BASE } = process.env;
 
 function Authentication({ children, location, dispatch }) {
-    if (storage.getAuthority()) {
+    if (storage.getTokenJWT()) {
         if (children.props.route.path === '/login') {
             return dispatch(routerRedux.goBack());
         }

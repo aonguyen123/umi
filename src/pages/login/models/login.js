@@ -12,14 +12,14 @@ export default {
         *login({ payload }, { put, call }) {
             const response = yield call(userServices.login, payload);
             if (response) {
-                const { token, role, ...rest } = response;
-                if (token && role) {
-                    storage.setTokenJWT(token);
-                    storage.setAuthority(role);
-                    storage.setUserCurrent(rest);
+                const { accessToken } = response;
+                if (accessToken) {
+                    storage.setTokenJWT(accessToken);
+                    // storage.setAuthority(role);
+                    // storage.setUserCurrent(rest);
                 }
             }
-            const loginStatus = !!(response && response.token);
+            const loginStatus = !!(response && response.accessToken);
             yield put({
                 type: 'saveLoginStatus',
                 status: loginStatus,
