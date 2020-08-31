@@ -1,24 +1,20 @@
 import { routerRedux } from 'dva';
+import axios from 'axios';
+
 import { delay } from '@/utils/utils';
 import storage from '@/utils/storage';
+import { getMe } from '@/services/user';
 
 export default {
     namespace: 'authentication',
 
     state: {
         login: false,
-        currentUser: {},
+        currentUser: undefined,
         roles: undefined,
     },
 
     effects: {
-        *getCurrentUser(action, { put }) {
-            const userCurrent = storage.getUserCurrent();
-            yield put({
-                type: 'saveUserCurrent',
-                data: userCurrent,
-            });
-        },
         *logout(action, { put, call }) {
             yield call(delay, 3000);
             storage.setTokenJWT(null);
@@ -34,18 +30,20 @@ export default {
                 value: false,
             });
         },
+        *getMe(action, { put, call }) {
+            const data = yield call(getMe);
+            yield put({ type: 'saveUserCurrent', data });
+        },
 
         authUserWatcher: [
-            function*({ take, select, put }) {
+            function*({ take, select, put, call }) {
                 while (true) {
                     yield take('login/saveLoginStatus');
-                    const { status, redirectUrl } = yield select(state => state.login);
-                    if (status) {
-                        yield put({
-                            type: 'updateField',
-                            field: 'login',
-                            value: true,
-                        });
+                    const { token, redirectUrl } = yield select(state => state.login);
+                    if (token) {
+                        console.log(redirectUrl);
+                        // const data = yield call(getMe);
+                        // yield put({ type: 'saveUserCurrent', data });
                         yield put(routerRedux.push(redirectUrl));
                     }
                 }
@@ -71,12 +69,12 @@ export default {
         },
     },
     subscriptions: {
-        setup({ history, dispatch }) {
-            return history.listen(({ pathname }) => {
-                if (pathname === '/') {
-                    dispatch({ type: 'getCurrentUser' });
-                }
-            });
+        setupGetMe({ dispatch }) {
+            const token = storage.getTokenJWT();
+            if (token) {
+                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                return dispatch({ type: 'getMe' });
+            }
         },
     },
 };

@@ -1,12 +1,11 @@
 import React from 'react';
 import { Redirect } from 'umi';
 import { routerRedux, connect } from 'dva';
-import storage from '@/utils/storage';
 
 const { LOGIN_PAGE_BASE } = process.env;
 
-function Authentication({ children, location, dispatch }) {
-    if (storage.getTokenJWT()) {
+function Authentication({ children, location, dispatch, currentUser }) {
+    if (currentUser) {
         if (children.props.route.path === '/login') {
             return dispatch(routerRedux.goBack());
         }
@@ -34,4 +33,6 @@ function Authentication({ children, location, dispatch }) {
     }
 }
 
-export default connect()(Authentication);
+export default connect(({ authentication }) => ({
+    currentUser: authentication.currentUser,
+}))(Authentication);

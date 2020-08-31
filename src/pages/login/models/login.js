@@ -4,7 +4,7 @@ import storage from '@/utils/storage';
 export default {
     namespace: 'login',
     state: {
-        status: undefined,
+        token: undefined,
         redirectUrl: '',
     },
 
@@ -15,16 +15,13 @@ export default {
                 const { accessToken } = response;
                 if (accessToken) {
                     storage.setTokenJWT(accessToken);
-                    // storage.setAuthority(role);
-                    // storage.setUserCurrent(rest);
                 }
             }
-            const loginStatus = !!(response && response.accessToken);
             yield put({
                 type: 'saveLoginStatus',
-                status: loginStatus,
+                token: response.accessToken,
             });
-            return loginStatus;
+            //neu return thi ben view page se nhan gia tri return
         },
     },
 
@@ -38,7 +35,7 @@ export default {
         saveLoginStatus(state, action) {
             return {
                 ...state,
-                status: action.status,
+                token: action.token,
             };
         },
         reset(state) {

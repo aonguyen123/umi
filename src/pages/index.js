@@ -11,6 +11,7 @@ export default connect(({ authentication, loading }) => ({
     currentUser: authentication.currentUser,
     loadingLogout: loading.effects['authentication/logout'],
 }))(function({ currentUser, loadingLogout, dispatch }) {
+    console.log(loadingLogout);
     function onLogout() {
         dispatch({
             type: 'authentication/logout',

@@ -7,10 +7,10 @@ function parseJWT(token) {
 function getTokenJWT() {
     const token = localStorage.getItem('token_JWT');
     if (!token) return null;
-    if (parseJWT(token).exp < Date.now() / 1000) {
-        setTokenJWT(null);
-        return null;
-    }
+    // if (parseJWT(token).exp < Date.now() / 1000) {
+    //     setTokenJWT(null);
+    //     return null;
+    // }
     return token;
 }
 function setTokenJWT(tokenJWT) {
