@@ -7,11 +7,11 @@ import { connect } from 'dva';
 import { useEffect } from 'react';
 
 function Home({ loadingEffect, dispatch }) {
-    useEffect(() => {
-        dispatch({ type: 'authentication/getMe' });
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch({ type: 'authentication/getMe' });
+    // }, [dispatch]);
 
-    console.log(loadingEffect);
+
     return <div>home page</div>;
 }
 

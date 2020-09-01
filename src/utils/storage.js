@@ -14,7 +14,10 @@ function getTokenJWT() {
     return token;
 }
 function setTokenJWT(tokenJWT) {
-    return localStorage.setItem('token_JWT', tokenJWT);
+    if (tokenJWT) {
+        return localStorage.setItem('token_JWT', tokenJWT);
+    }
+    return window.localStorage.removeItem('token_JWT');
 }
 function setAuthority(auth) {
     if (auth) {

@@ -18,16 +18,11 @@ export default {
         *logout(action, { put, call }) {
             yield call(delay, 3000);
             storage.setTokenJWT(null);
-            storage.setAuthority(null);
-            storage.setUserCurrent(null);
-            yield put({
-                type: 'login/reset',
-            });
             yield put(routerRedux.push('/'));
             yield put({
                 type: 'updateField',
-                field: 'login',
-                value: false,
+                field: 'currentUser',
+                value: undefined,
             });
         },
         *getMe(action, { put, call }) {
@@ -41,9 +36,9 @@ export default {
                     yield take('login/saveLoginStatus');
                     const { token, redirectUrl } = yield select(state => state.login);
                     if (token) {
-                        console.log(redirectUrl);
-                        // const data = yield call(getMe);
-                        // yield put({ type: 'saveUserCurrent', data });
+                        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                        const data = yield call(getMe);
+                        yield put.resolve({ type: 'saveUserCurrent', data });
                         yield put(routerRedux.push(redirectUrl));
                     }
                 }

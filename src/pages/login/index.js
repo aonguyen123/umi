@@ -1,7 +1,5 @@
 /**
  * title: Login page
- * Routes:
- *  - ./src/components/Security/Authentication.js
  */
 import { Row, Col } from 'antd';
 import { connect } from 'dva';
