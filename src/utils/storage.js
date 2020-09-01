@@ -1,8 +1,8 @@
-function parseJWT(token) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace('-', '+').replace('_', '/');
-    return JSON.parse(decodeURIComponent(escape(window.atob(base64))));
-}
+// function parseJWT(token) {
+//     const base64Url = token.split('.')[1];
+//     const base64 = base64Url.replace('-', '+').replace('_', '/');
+//     return JSON.parse(decodeURIComponent(escape(window.atob(base64))));
+// }
 
 function getTokenJWT() {
     const token = localStorage.getItem('token_JWT');

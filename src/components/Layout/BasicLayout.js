@@ -1,14 +1,20 @@
 import React from 'react';
 import { Layout } from 'antd';
+import { connect } from 'dva';
+
 import GlobalHeader from './../GlobalHeader';
 import GlobalFooter from './../GlobalFooter';
+import Loader from '@/components/Loader/Loader';
+import styles from './styles.css';
 
 const { Content } = Layout;
 
-export default function BasicLayout({ children, styles }) {
+function BasicLayout({ children, loading }) {
+    console.log(loading.effects['app/query']);
     return (
         <Layout>
             <GlobalHeader />
+            <Loader fullScreen spinning={loading.effects['app/query']} />
             <Content>
                 <div className={styles.basicContainer}>{children}</div>
             </Content>
@@ -16,3 +22,7 @@ export default function BasicLayout({ children, styles }) {
         </Layout>
     );
 }
+
+export default connect(({ loading }) => ({
+    loading,
+}))(BasicLayout);

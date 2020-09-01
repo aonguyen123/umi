@@ -12,9 +12,12 @@
     "@ant-design/icons": "^4.2.2",
     "antd": "^4.6.1",
     "axios": "^0.20.0",
+    "classnames": "^2.2.6",
     "dva": "^2.6.0-beta.6",
+    "path-to-regexp": "^6.1.0",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "store": "^2.0.12"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",

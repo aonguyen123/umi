@@ -1,5 +1,4 @@
 import axios from 'axios';
-import storage from './storage';
 
 export function request(method, endPoint, data, params) {
     const { URL_API } = process.env;
@@ -9,4 +8,7 @@ export function request(method, endPoint, data, params) {
         data,
         params,
     });
+}
+export function setHeaderRequest(token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }

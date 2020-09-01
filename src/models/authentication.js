@@ -31,21 +31,21 @@ export default {
         },
 
         authUserWatcher: [
-            function*({ take, select, put, call }) {
-                while (true) {
-                    yield take('login/saveLoginStatus');
-                    const { token, redirectUrl } = yield select(state => state.login);
-                    if (token) {
-                        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                        const data = yield call(getMe);
-                        yield put.resolve({ type: 'saveUserCurrent', data });
-                        yield put(routerRedux.push(redirectUrl));
-                    }
-                }
-            },
-            {
-                type: 'watcher',
-            },
+            // function*({ take, select, put, call }) {
+            //     while (true) {
+            //         yield take('login/saveLoginStatus');
+            //         const { token, redirectUrl } = yield select(state => state.login);
+            //         if (token) {
+            //             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            //             const data = yield call(getMe);
+            //             yield put.resolve({ type: 'saveUserCurrent', data });
+            //             yield put(routerRedux.push(redirectUrl));
+            //         }
+            //     }
+            // },
+            // {
+            //     type: 'watcher',
+            // },
         ],
     },
 
@@ -64,12 +64,12 @@ export default {
         },
     },
     subscriptions: {
-        setupGetMe({ dispatch }) {
-            const token = storage.getTokenJWT();
-            if (token) {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-                return dispatch({ type: 'getMe' });
-            }
-        },
+        // setupGetMe({ dispatch }) {
+        //     const token = storage.getTokenJWT();
+        //     if (token) {
+        //         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        //         return dispatch({ type: 'getMe' });
+        //     }
+        // },
     },
 };

@@ -1,14 +1,15 @@
 import React from 'react';
 import { Redirect } from 'umi';
-import { routerRedux, connect } from 'dva';
+import { connect } from 'dva';
+import Loader from '@/components/Loader/Loader';
 
 const { LOGIN_PAGE_BASE } = process.env;
 
 function Authentication({ children, location, dispatch, currentUser, loadingGlobal }) {
-    console.log(currentUser)
-    console.log(loadingGlobal)
-    if(loadingGlobal) {
-        return 'loading...'
+    console.log(currentUser);
+    console.log(loadingGlobal);
+    if (loadingGlobal) {
+        return <Loader fullScreen spinning={loadingGlobal} />;
     }
 
     if (currentUser) {
@@ -37,5 +38,5 @@ function Authentication({ children, location, dispatch, currentUser, loadingGlob
 
 export default connect(({ authentication, loading }) => ({
     currentUser: authentication.currentUser,
-    loadingGlobal: loading.global
+    loadingGlobal: loading.global,
 }))(Authentication);
