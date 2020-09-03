@@ -2,7 +2,6 @@ import { List, Avatar } from 'antd';
 import { connect } from 'dva';
 
 function Notifies({ notifies, loading }) {
-    console.log(notifies);
     return (
         <div>
             <List
@@ -13,10 +12,10 @@ function Notifies({ notifies, loading }) {
                     <List.Item>
                         <List.Item.Meta
                             avatar={
-                                <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                <Avatar src={item.idUser.avatar}>{item.idUser.username.charAt(0).toUpperCase()}</Avatar>
                             }
-                            title={<a href="https://ant.design">{item.title}</a>}
-                            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                            title={item.idUser.username}
+                            description={item.name}
                         />
                     </List.Item>
                 )}
