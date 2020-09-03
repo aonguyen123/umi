@@ -5,14 +5,11 @@ import Loader from '@/components/Loader/Loader';
 
 const { LOGIN_PAGE_BASE } = process.env;
 
-function Authentication({ children, location, dispatch, currentUser, loadingGlobal }) {
-    console.log(currentUser);
-    console.log(loadingGlobal);
-    if (loadingGlobal) {
-        return <Loader fullScreen spinning={loadingGlobal} />;
+function Authentication({ children, location, dispatch, statusLogin, loading }) {
+    if(loading.effects['app/query']) {
+        return <Loader fullScreen spinning={loading.effects['app/query']} />;
     }
-
-    if (currentUser) {
+    if (statusLogin) {
         return (
             <div>
                 <h2>Authentication</h2>
@@ -36,7 +33,7 @@ function Authentication({ children, location, dispatch, currentUser, loadingGlob
     return <Redirect to={loginPath} />;
 }
 
-export default connect(({ authentication, loading }) => ({
-    currentUser: authentication.currentUser,
-    loadingGlobal: loading.global,
+export default connect(({ app, loading }) => ({
+    statusLogin: app.statusLogin,
+    loading
 }))(Authentication);

@@ -2,7 +2,7 @@ import React from 'react';
 import LoginLayout from '@/components/Layout/LoginLayout';
 import BasicLayout from '@/components/Layout/BasicLayout';
 
-export default function({ location: { pathname }, children }) {
+export default function({ location: { pathname }, children, loading }) {
     if (pathname.startsWith('/login')) {
         return <LoginLayout>{children}</LoginLayout>;
     }
@@ -10,4 +10,4 @@ export default function({ location: { pathname }, children }) {
         return children;
     }
     return <BasicLayout>{children}</BasicLayout>;
-}
+};

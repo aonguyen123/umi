@@ -10,11 +10,12 @@ import styles from './styles.css';
 const { Content } = Layout;
 
 function BasicLayout({ children, loading }) {
-    console.log(loading.effects['app/query']);
+    if (loading.global) {
+        return <Loader fullScreen spinning={loading.global} />;
+    }
     return (
         <Layout>
             <GlobalHeader />
-            <Loader fullScreen spinning={loading.effects['app/query']} />
             <Content>
                 <div className={styles.basicContainer}>{children}</div>
             </Content>

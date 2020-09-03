@@ -1,10 +1,12 @@
 import React from 'react';
+import { connect } from 'dva';
 
-export default function LoginLayout({ children }) {
-    return (
-        <div>
-            <h2>LoginLayout</h2>
-            <div className="container">{children}</div>
-        </div>
-    );
+import Loader from '@/components/Loader/Loader';
+
+function LoginLayout({ children, loading }) {
+    console.log(loading)
+    return <div className="container">{children}</div>;
 }
+export default connect(({ loading }) => ({
+    loading,
+}))(LoginLayout);

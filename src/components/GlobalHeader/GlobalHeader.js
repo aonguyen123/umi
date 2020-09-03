@@ -8,41 +8,51 @@ import styles from './styles.css';
 const { Header } = Layout;
 const { SubMenu } = Menu;
 
-export default function GlobalHeader() {
+function GlobalHeader({ statusLogin, userInfo, dispatch }) {
+    function onLogout() {
+        dispatch({ type: 'app/logout' });
+    }
+
     const rightContent = [
-        <Menu key="user" mode="horizontal" className={styles.headerAntd}>
-            <SubMenu
-                className={styles.subMenu}
-                title={
-                    <Fragment>
-                        <span style={{ color: '#999', marginRight: 4 }}>Hi,</span>
-                        <span>aonguyen</span>
-                        <Avatar
-                            size="large"
-                            style={{ marginLeft: 8, top: '-5px' }}
-                            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                        />
-                    </Fragment>
-                }
-            >
-                <Menu.Item key="SignOut">
-                    <LogoutOutlined />
-                    Sign out
-                </Menu.Item>
-            </SubMenu>
-        </Menu>,
+        statusLogin && (
+            <Menu key="user" mode="horizontal" className={styles.headerAntd}>
+                <SubMenu
+                    className={styles.subMenu}
+                    title={
+                        <Fragment>
+                            <span style={{ color: '#999', marginRight: 4 }}>Hi,</span>
+                            <span>{userInfo.username}</span>
+                            <Avatar
+                                size="large"
+                                style={{ marginLeft: 8, top: '-5px' }}
+                                src={userInfo.avatar ? userInfo.avatar : null}
+                            >
+                                {userInfo?.username.charAt(0).toUpperCase()}
+                            </Avatar>
+                        </Fragment>
+                    }
+                >
+                    <Menu.Item key="SignOut" onClick={onLogout}>
+                        <LogoutOutlined />
+                        Sign out
+                    </Menu.Item>
+                </SubMenu>
+            </Menu>
+        ),
     ];
     rightContent.unshift(
-        <Menu
-            key="login"
-            //   selectedKeys={[currentLanguage.key]}
-            className={styles.headerAntd}
-            mode="horizontal"
-        >
-            <Menu.Item>
-                <Link to="/login">Login</Link>
-            </Menu.Item>
-        </Menu>,
+        !statusLogin && (
+            <Menu
+                key="login"
+                //   selectedKeys={[currentLanguage.key]}
+                className={styles.headerAntd}
+                mode="horizontal"
+            >
+                <Menu.Item>
+                    <Link to="/login">Login</Link>
+                </Menu.Item>
+            </Menu>
+        ),
     );
     rightContent.unshift(
         <Menu
@@ -88,3 +98,8 @@ export default function GlobalHeader() {
         </Header>
     );
 }
+
+export default connect(({ app }) => ({
+    statusLogin: app.statusLogin,
+    userInfo: app.userInfo,
+}))(GlobalHeader);
