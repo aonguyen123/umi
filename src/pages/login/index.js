@@ -7,7 +7,6 @@ import LoginComponent from '@/pages/login/components/login';
 import styles from './styles.css';
 
 function Login({ dispatch, loading }) {
-
     async function onLogin(values) {
         await dispatch({
             type: 'login/login',
@@ -24,5 +23,5 @@ function Login({ dispatch, loading }) {
 }
 
 export default connect(({ loading }) => ({
-    loading
+    loading,
 }))(Login);

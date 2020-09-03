@@ -3,12 +3,15 @@
  * Routes:
  * - ./src/components/Security/Authentication.js
  */
-import { connect } from 'dva';
+import Notifies from './components/Notifies';
+import styles from './styles.css';
 
-function Home({ loadingEffect, dispatch }) {
-    return <div>home page</div>;
+function Home() {
+    return (
+        <div className={styles.container}>
+            <Notifies />
+        </div>
+    );
 }
 
-export default connect(({ loading }) => ({
-    loadingEffect: loading.effects['authentication/getMe'],
-}))(Home);
+export default Home;

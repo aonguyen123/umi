@@ -6,16 +6,11 @@ import Loader from '@/components/Loader/Loader';
 const { LOGIN_PAGE_BASE } = process.env;
 
 function Authentication({ children, location, dispatch, statusLogin, loading }) {
-    if(loading.effects['app/query']) {
+    if (loading.effects['app/query']) {
         return <Loader fullScreen spinning={loading.effects['app/query']} />;
     }
     if (statusLogin) {
-        return (
-            <div>
-                <h2>Authentication</h2>
-                {children}
-            </div>
-        );
+        return <div>{children}</div>;
     }
     if (children.props.route.path === '/login') {
         return children;
@@ -35,5 +30,5 @@ function Authentication({ children, location, dispatch, statusLogin, loading }) 
 
 export default connect(({ app, loading }) => ({
     statusLogin: app.statusLogin,
-    loading
+    loading,
 }))(Authentication);

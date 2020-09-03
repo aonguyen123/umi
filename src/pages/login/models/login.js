@@ -5,9 +5,7 @@ import { setHeaderRequest } from '@/utils/request';
 
 export default {
     namespace: 'login',
-    state: {
-
-    },
+    state: {},
 
     effects: {
         *login({ payload }, { put, call, select }) {
@@ -31,6 +29,5 @@ export default {
         },
     },
 
-    reducers: {
-    },
+    reducers: {},
 };

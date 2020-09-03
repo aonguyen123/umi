@@ -8,7 +8,7 @@ import styles from './styles.css';
 const { Header } = Layout;
 const { SubMenu } = Menu;
 
-function GlobalHeader({ statusLogin, userInfo, dispatch }) {
+function GlobalHeader({ statusLogin, userInfo, dispatch, roleInfo, locationPathname }) {
     function onLogout() {
         dispatch({ type: 'app/logout' });
     }
@@ -20,11 +20,12 @@ function GlobalHeader({ statusLogin, userInfo, dispatch }) {
                     className={styles.subMenu}
                     title={
                         <Fragment>
-                            <span style={{ color: '#999', marginRight: 4 }}>Hi,</span>
+                            <span className={styles.wellcomeHeader}>Hi,</span>
+                            <span className={styles.roleUser}>[{roleInfo.roleName}]</span>
                             <span>{userInfo.username}</span>
                             <Avatar
+                                className={styles.avatarUser}
                                 size="large"
-                                style={{ marginLeft: 8, top: '-5px' }}
                                 src={userInfo.avatar ? userInfo.avatar : null}
                             >
                                 {userInfo?.username.charAt(0).toUpperCase()}
@@ -44,11 +45,11 @@ function GlobalHeader({ statusLogin, userInfo, dispatch }) {
         !statusLogin && (
             <Menu
                 key="login"
-                //   selectedKeys={[currentLanguage.key]}
+                selectedKeys={[locationPathname]}
                 className={styles.headerAntd}
                 mode="horizontal"
             >
-                <Menu.Item>
+                <Menu.Item key="/login">
                     <Link to="/login">Login</Link>
                 </Menu.Item>
             </Menu>
@@ -57,11 +58,11 @@ function GlobalHeader({ statusLogin, userInfo, dispatch }) {
     rightContent.unshift(
         <Menu
             key="home"
-            //   selectedKeys={[currentLanguage.key]}
+            selectedKeys={[locationPathname]}
             className={styles.headerAntd}
             mode="horizontal"
         >
-            <Menu.Item>
+            <Menu.Item key="/home">
                 <Link to="/home">Home page</Link>
             </Menu.Item>
         </Menu>,
@@ -69,11 +70,11 @@ function GlobalHeader({ statusLogin, userInfo, dispatch }) {
     rightContent.unshift(
         <Menu
             key="dashboard"
-            //   selectedKeys={[currentLanguage.key]}
+            selectedKeys={[locationPathname]}
             className={styles.headerAntd}
             mode="horizontal"
         >
-            <Menu.Item>
+            <Menu.Item key="/admin">
                 <Link to="/admin">Admin page</Link>
             </Menu.Item>
         </Menu>,
@@ -81,13 +82,15 @@ function GlobalHeader({ statusLogin, userInfo, dispatch }) {
 
     const leftContent = [
         <div className={styles.logo} key="logo">
-            <Image
-                src="https://avatars1.githubusercontent.com/u/20552239?s=200&v=4"
-                alt="img"
-                width={50}
-                style={{ top: '-5px' }}
-            />
-            <span>dva</span>
+            <Link to="/">
+                <Image
+                    src="https://avatars1.githubusercontent.com/u/20552239?s=200&v=4"
+                    alt="img"
+                    width={50}
+                    style={{ top: '-5px' }}
+                />
+                <span>dva</span>
+            </Link>
         </div>,
     ];
 
@@ -102,4 +105,6 @@ function GlobalHeader({ statusLogin, userInfo, dispatch }) {
 export default connect(({ app }) => ({
     statusLogin: app.statusLogin,
     userInfo: app.userInfo,
+    roleInfo: app.roleInfo,
+    locationPathname: app.locationPathname,
 }))(GlobalHeader);

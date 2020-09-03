@@ -10,8 +10,8 @@ import styles from './styles.css';
 const { Content } = Layout;
 
 function BasicLayout({ children, loading }) {
-    if (loading.global) {
-        return <Loader fullScreen spinning={loading.global} />;
+    if (loading.effects['app/query']) {
+        return <Loader fullScreen spinning={loading.effects['app/query']} />;
     }
     return (
         <Layout>

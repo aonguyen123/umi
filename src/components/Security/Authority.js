@@ -1,13 +1,14 @@
+import { connect } from 'dva';
 import Forbidden from '@/components/Security/Forbidden';
-import storage from '@/utils/storage';
 import { ROLES } from '@/contants';
 
-function Authority({ children }) {
-    const role = ROLES.find(item => item.role === JSON.parse(storage.getAuthority()));
-    if (role.value === 'Admin') {
+function Authority({ children, roleInfo }) {
+    if (ROLES.find(item => item === roleInfo.roleName) === 'Admin') {
         return children;
     }
     return <Forbidden />;
 }
 
-export default Authority;
+export default connect(({ app }) => ({
+    roleInfo: app.roleInfo,
+}))(Authority);
