@@ -1,4 +1,4 @@
-import { getNotify } from '@/services/user';
+import { getNotify, addNotifycation } from '@/services/user';
 
 export default {
     namespace: 'home',
@@ -11,6 +11,10 @@ export default {
             const result = yield call(getNotify);
             yield put({ type: 'saveNotifies', data: result });
         },
+        *addNofify({ payload }, { call, put }) {
+            const result = yield call(addNotifycation, payload);
+            yield put({ type: 'addNotify', data: result });
+        },
     },
 
     reducers: {
@@ -18,6 +22,12 @@ export default {
             return {
                 ...state,
                 notifies: action.data,
+            };
+        },
+        addNotify(state, action) {
+            return {
+                ...state,
+                notifies: [action.data, ...state.notifies],
             };
         },
     },
