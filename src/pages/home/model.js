@@ -11,9 +11,9 @@ export default {
             const result = yield call(getNotify);
             yield put({ type: 'saveNotifies', data: result });
         },
-        *addNofify({ payload }, { call, put }) {
+        *addNotify({ payload }, { call, put }) {
             const result = yield call(addNotifycation, payload);
-            yield put({ type: 'addNotify', data: result });
+            yield put({ type: 'addNoti', data: result });
         },
     },
 
@@ -24,7 +24,7 @@ export default {
                 notifies: action.data,
             };
         },
-        addNotify(state, action) {
+        addNoti(state, action) {
             return {
                 ...state,
                 notifies: [action.data, ...state.notifies],
