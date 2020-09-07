@@ -7,18 +7,9 @@ import { Row, Col } from 'antd';
 import { connect } from 'dva';
 import Notifies from './components/Notifies';
 import AddNotify from './components/AddNotify';
-import { onMessageListener } from './../../firebaseInit';
 import styles from './styles.css';
 
 function Home({ notifies, loading, dispatch, userInfo }) {
-    onMessageListener()
-        .then(payload => {
-            const { title, body } = payload.data;
-            console.log(title, body);
-        })
-        .catch(err => {
-            console.log(err);
-        });
 
     function sendMessage(values) {
         const payload = { ...values, idUser: userInfo._id };
