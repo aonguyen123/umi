@@ -3,11 +3,12 @@
  *
  */
 import './index.css';
+// import Edit from '@/components/LogoGather/LogoGather'
 
 export default function() {
     return (
         <div>
-            <h2>public page</h2>
+            public page
         </div>
     );
 }

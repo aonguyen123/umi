@@ -1,9 +1,11 @@
-import { getNotify, addNotifycation } from '@/services/user';
+import pathToRegexp from 'path-to-regexp';
+import { getNotify, addNotifycation, getNotifyDetail } from '@/services/user';
 
 export default {
     namespace: 'home',
     state: {
         notifies: [],
+        notifyDetail: {}
     },
 
     effects: {
@@ -15,6 +17,10 @@ export default {
             const result = yield call(addNotifycation, payload);
             yield put({ type: 'addNoti', data: result });
         },
+        *getNotifyDetail({payload}, {call, put}) {
+            const data = yield call(getNotifyDetail, payload);
+            yield put({type: 'saveNotifyDetail', data})
+        }
     },
 
     reducers: {
@@ -30,12 +36,22 @@ export default {
                 notifies: [action.data, ...state.notifies],
             };
         },
+        saveNotifyDetail(state, action) {
+            return {
+                ...state,
+                notifyDetail: action.data
+            }
+        }
     },
     subscriptions: {
         setup({ dispatch, history }) {
             return history.listen(({ pathname }) => {
                 if (pathname === '/home') {
                     dispatch({ type: 'getNotify' });
+                }
+                const match = pathToRegexp('/home/:id').exec(pathname);
+                if (match) {
+                    dispatch({ type: 'getNotifyDetail', payload: match[1] });
                 }
             });
         },

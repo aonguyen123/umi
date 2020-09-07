@@ -8,6 +8,7 @@ function Notifies({ notifies, loading, location }) {
                 loading={loading.effects['home/getNotify']}
                 itemLayout="horizontal"
                 dataSource={notifies}
+                bordered
                 renderItem={item => (
                     <List.Item
                         actions={[<Link to={`${location.pathname}/${item._id}`}>Detail</Link>]}
