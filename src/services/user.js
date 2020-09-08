@@ -20,3 +20,7 @@ export async function addNotifycation(data) {
     const response = await request('POST', '/notify/create', data, null);
     return response.data;
 }
+export async function getNotifyDetail(idNotify) {
+    const response = await request('GET', `/notify/notifyDetail/${idNotify}`, null, null);
+    return response.data;
+}

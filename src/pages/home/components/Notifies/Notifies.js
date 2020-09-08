@@ -1,14 +1,18 @@
 import { List, Avatar } from 'antd';
+import { Link } from 'umi';
 
-function Notifies({ notifies, loading }) {
+function Notifies({ loading, notifies, location }) {
     return (
         <div>
             <List
                 loading={loading.effects['home/getNotify']}
                 itemLayout="horizontal"
+                bordered
                 dataSource={notifies}
                 renderItem={item => (
-                    <List.Item>
+                    <List.Item
+                        actions={[<Link to={`${location.pathname}/${item._id}`}>edit</Link>]}
+                    >
                         <List.Item.Meta
                             avatar={
                                 <Avatar src={item.idUser.avatar}>

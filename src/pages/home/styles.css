@@ -1,3 +1,10 @@
 .container {
     padding: 20px;
+    background: #fff;
+    min-height: 100vh;
+}
+.messDetail {
+    padding: 20px;
+    background: #fff;
+    min-height: 100vh;
 }
