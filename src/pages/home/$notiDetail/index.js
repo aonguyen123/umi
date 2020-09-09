@@ -7,13 +7,13 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Card, Descriptions } from 'antd';
+import moment from 'moment';
 import styles from './styles.css';
 
 export default connect(({ home, loading }) => ({
     notifyDetail: home.notifyDetail,
-    loading
+    loading,
 }))(function({ notifyDetail, loading }) {
-
     return (
         <div className={styles.container}>
             <div className={styles.content}>
@@ -26,7 +26,7 @@ export default connect(({ home, loading }) => ({
                             {notifyDetail.name}
                         </Descriptions.Item>
                         <Descriptions.Item span={3} label="Create date">
-                            {notifyDetail.createdAt}
+                            {moment(notifyDetail.createdAt).format('DD/MM/YYYY')}
                         </Descriptions.Item>
                     </Descriptions>
                 </Card>
