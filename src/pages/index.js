@@ -7,7 +7,7 @@ import './index.css';
 
 export default function() {
     return (
-        <div>
+        <div style={{background: '#fff', minHeight: '100vh'}}>
             public page
         </div>
     );
